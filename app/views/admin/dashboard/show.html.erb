@@ -1,2 +1,16 @@
-<h1>Admin::Dashboard#show</h1>
-<p>Find me in app/views/admin/dashboard/show.html.erb</p>
+<h1 class="mt-5 mb-3">Admin Dashboard</h1>
+
+<div class="table-responsive small">
+        <table class="table table-striped table-sm">
+          <tbody>
+            <tr>
+              <td>Number of products in the database</td>
+              <td><%= link_to @products_count, [:admin, :products] %></td>
+            </tr>
+            <tr>
+              <td>Number of categories</td>
+              <td><%= link_to @categories_count, [:admin, :products] %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>

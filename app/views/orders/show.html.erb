@@ -8,6 +8,39 @@
     <h4>Thank you for your order!</h4>
   </div>
 
-  <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
+  
+  <h5 class="mt-5">The email that was used for the order: <%= @order.email %></h5>
 
+  <header class="page-header mb-2">
+    <h3>Your order details:</h3>
+  </header>
+
+  <div class="panel panel-default items">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th colspan="2">Product</th>
+          <th>Unit Price</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @order.line_items.each do |item| %>
+        <%= render partial: 'line_item', locals: { product: item.product, quantity: item.quantity, total_price: item.total_price } %>
+      <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th colspan="4">
+            The final amount for the order:
+          </th>
+          <th>
+            <%= humanized_money_with_symbol @order.total %>
+          </th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
 </section>
+

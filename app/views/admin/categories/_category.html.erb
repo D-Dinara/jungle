@@ -1,0 +1,19 @@
+<tr>
+  <td>
+    <%= category.name %>
+  </td>
+  <td>
+    <%= category.products.count %>
+  </td>
+  <td>
+    <% if category.products.count <=0 %>
+      No products in this category
+      <% else %>
+      <% category.products.each do |product| %>
+        <ul>
+          <li class="my-0"><%= product.name %></li>
+        </ul>
+      <% end %>
+    <% end %>
+  </td>
+</tr>

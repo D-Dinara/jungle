@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
   root to: 'products#index'
 
-  get 'about', to: 'about#index'
+  resources :about, only: [:index]
 
   resources :products, only: [:index, :show]
   resources :categories, only: [:show]

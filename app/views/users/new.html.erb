@@ -1,11 +1,28 @@
-<h1>Signup!</h1>
+<h1 class="h3 mt-5 mb-3 fw-normal">Please signup</h1>
 
 <%= form_for :user, url: '/users' do |f| %>
-
-  Name: <%= f.text_field :name %>
-  Email: <%= f.text_field :email %>
-  Password: <%= f.password_field :password %>
-  Password Confirmation: <%= f.password_field :password_confirmation %>
-  <%= f.submit "Submit" %>
-
+  <div class="mb-3">
+    <%= f.label :first_name, class: "form-label mb-1" %>
+    <%= f.text_field :first_name, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :last_name, class: "form-label mb-1" %>
+    <%= f.text_field :last_name, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :email, class: "form-label mb-1" %>
+    <%= f.text_field :email, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :password, class: "form-label mb-1" %>
+    <%= f.password_field :password, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :password_confirmation, class: "form-label mb-1" %>
+    <%= f.password_field :password_confirmation, class: "form-control" %>
+  </div>
+  <%= f.submit "Submit", class: "btn btn-primary btn-lg" %>
 <% end %>
+
+
+

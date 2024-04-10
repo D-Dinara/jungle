@@ -3,12 +3,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(user_params)
-    if user.save
-      session[:user_id] = user.id
+    @user = User.new(user_params)
+    if @user.save
+      session[:user_id] = @user.id
       redirect_to '/'
     else
-      redirect_to '/signup'
+      flash.now[:alert] = "Failed to create user: " + @user.errors.full_messages.join(", ") # Set error message
+      render :new
     end
   end
 

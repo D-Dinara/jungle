@@ -1,6 +1,11 @@
 <h1 class="h3 mt-5 mb-3 fw-normal">Please signup</h1>
 
 <%= form_for :user, url: '/users' do |f| %>
+  <% if flash.now[:alert] %>
+    <div class="alert alert-danger" role="alert">
+      <%= flash.now[:alert] %>
+    </div>
+  <% end %>
   <div class="mb-3">
     <%= f.label :first_name, class: "form-label mb-1" %>
     <%= f.text_field :first_name, class: "form-control" %>

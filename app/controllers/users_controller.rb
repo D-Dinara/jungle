@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to '/'
     else
-      flash.now[:alert] = "Failed to create user: " + @user.errors.full_messages.join(", ") # Set error message
+      flash.now[:alert] = "Failed to create account: " + @user.errors.full_messages.join(", ") # Set error message
       render :new
     end
   end

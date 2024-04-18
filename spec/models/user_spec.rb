@@ -2,6 +2,11 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'Validations' do
+    it 'password and password_confirmation must match' do
+      user = User.new(email: 'test@test.com', first_name: 'John', last_name: 'Doe', password: 'password', password_confirmation: 'password')
+      expect(user.valid?).to be_truthy
+    end
+
     it 'must be created with password field' do
       user = User.new(email: 'test@test.com', first_name: 'John', last_name: 'Doe', password: nil, password_confirmation: 'password')
       expect(user.valid?).to be_falsey
@@ -78,27 +83,40 @@ RSpec.describe User, type: :model do
       end
   
       context 'when given incorrect password' do
-        it 'returns nil' do
+        it 'returns false' do
           authenticated_user = User.authenticate_with_credentials('test@test.com', 'wrong_password')
           expect(authenticated_user).to be_falsey
         end
       end
   
       context 'when given email with leading/trailing whitespace' do
-        it 'returns the user instance' do
+        it 'authenticates successfully' do
           authenticated_user = User.authenticate_with_credentials('  test@test.com  ', 'password')
           expect(authenticated_user).to eq(@user)
         end
       end
   
       context 'when given email with different cases' do
-        it 'returns the user instance' do
+        it 'authenticates successfully' do
           authenticated_user = User.authenticate_with_credentials('TEST@test.com', 'password')
           expect(authenticated_user).to eq(@user)
         end
       end
+
+      it 'should return nil when given empty email' do
+        authenticated_user = User.authenticate_with_credentials('', 'password')
+        expect(authenticated_user).to be_nil
+      end
+  
+      it 'should return false when given empty password' do
+        authenticated_user = User.authenticate_with_credentials('test@test.com', '')
+        expect(authenticated_user).to be_falsey
+      end
+  
+      it 'should return nil when given empty email and password' do
+        authenticated_user = User.authenticate_with_credentials('', '')
+        expect(authenticated_user).to be_nil
+      end
     end
-
-
   end
 end

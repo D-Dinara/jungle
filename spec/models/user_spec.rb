@@ -46,40 +46,59 @@ RSpec.describe User, type: :model do
     end
 
     it 'should have a minimum length when a user account is being created' do
-      user = User.new(email: 'test@example.com', first_name: 'John', last_name: 'Doe', password: 'pass', password_confirmation: 'pass')
+      user = User.new(email: 'test@test.com', first_name: 'John', last_name: 'Doe', password: 'pass', password_confirmation: 'pass')
       expect(user.valid?).to be_falsey
       expect(user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
     end
 
-  # describe '.authenticate_with_credentials' do
-  #   before do
-  #     @user = User.create(email: 'test@example.com', first_name: 'John', last_name: 'Doe', password: 'password', password_confirmation: 'password')
-  #   end
+    describe '.authenticate_with_credentials' do
+      before do
+        # Create a user for testing
+        @user = User.create(
+          email: 'test@test.com',
+          first_name: 'John',
+          last_name: 'Doe',
+          password: 'password',
+          password_confirmation: 'password'
+        )
+      end
+  
+      context 'when given valid credentials' do
+        it 'returns the user instance' do
+          authenticated_user = User.authenticate_with_credentials('test@test.com', 'password')
+          expect(authenticated_user).to eq(@user)
+        end
+      end
+  
+      context 'when given invalid email' do
+        it 'returns nil' do
+          authenticated_user = User.authenticate_with_credentials('invalid_email@test.com', 'password')
+          expect(authenticated_user).to be_nil
+        end
+      end
+  
+      context 'when given incorrect password' do
+        it 'returns nil' do
+          authenticated_user = User.authenticate_with_credentials('test@test.com', 'wrong_password')
+          expect(authenticated_user).to be_falsey
+        end
+      end
+  
+      context 'when given email with leading/trailing whitespace' do
+        it 'returns the user instance' do
+          authenticated_user = User.authenticate_with_credentials('  test@test.com  ', 'password')
+          expect(authenticated_user).to eq(@user)
+        end
+      end
+  
+      context 'when given email with different cases' do
+        it 'returns the user instance' do
+          authenticated_user = User.authenticate_with_credentials('TEST@test.com', 'password')
+          expect(authenticated_user).to eq(@user)
+        end
+      end
+    end
 
-  #   it 'should authenticate user with correct credentials' do
-  #     authenticated_user = User.authenticate_with_credentials('test@example.com', 'password')
-  #     expect(authenticated_user).to eq(@user)
-  #   end
-
-  #   it 'should return nil for non-existent email' do
-  #     authenticated_user = User.authenticate_with_credentials('nonexistent@example.com', 'password')
-  #     expect(authenticated_user).to be_nil
-  #   end
-
-  #   it 'should return nil for incorrect password' do
-  #     authenticated_user = User.authenticate_with_credentials('test@example.com', 'incorrect_password')
-  #     expect(authenticated_user).to be_nil
-  #   end
-
-  #   it 'should authenticate user with leading/trailing spaces in email' do
-  #     authenticated_user = User.authenticate_with_credentials('  test@example.com  ', 'password')
-  #     expect(authenticated_user).to eq(@user)
-  #   end
-
-  #   it 'should authenticate user with wrong case in email' do
-  #     authenticated_user = User.authenticate_with_credentials('TEST@example.COM', 'password')
-  #     expect(authenticated_user).to eq(@user)
-  #   end
 
   end
 end

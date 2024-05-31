@@ -1,6 +1,40 @@
 # Jungle
 
-A mini e-commerce application built with Rails 6.1 for purposes of teaching Rails by example.
+A mini e-commerce application built with Rails 6.1.
+
+## Final Product
+
+Home page
+!["Home page"](docs/home_page.png)
+
+Sign up page with error
+!["Sign up page with error"](docs/sign_up_error.png)
+
+Product page
+!["Product"](docs/product.png)
+
+Admin Dashboard Page
+!["Admin Dashboard Page"](docs/admin_dashboard.png)
+
+Admin All Products
+!["Admin All Products"](docs/admin_all_products.png)
+
+Admin Categories
+!["Admin Categories"](docs/admin_categories.png)
+
+Sold out badge
+!["Sold out badge"](docs/sold_out_badge.png)
+
+## Features
+* Users can sign up or log in.
+* Users can see all products in the inventory.
+* Users can search for products by category.
+* Users can click on a product to view more details.
+* Users can add products to the cart and remove them.
+* Stripe integration: Users can pay for products using a credit card.
+* Admins can view, add, and delete all products.
+* Admins can view, add, and delete all categories.
+* Admins can view the number of products and categories on a dashboard, and access all products and all categories pages by clicking the number.
 
 ## Setup
 
